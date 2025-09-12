@@ -1,3 +1,45 @@
 {
-    "github.copilot.chat.codeGeneration.useInstructionFiles": true
+    "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+    "customRules.autoRun": {
+        "enabled": true,
+        "approvedCommands": [
+            "custom-rules validate",
+            "npm test",
+            "npm run lint"
+        ],
+        "triggers": ["onSave", "onValidation"]
+    },
+    "customRules.security": {
+        "enforceBlacklist": true,
+        "validateCommands": true,
+        "preventDangerousOperations": true,
+        "neverExecute": [
+            "rm -rf /",
+            "del /f /s /q C:\\*",
+            "format",
+            "shutdown",
+            "reboot"
+        ]
+    },
+    "customRules.exclusions": {
+        "respectGitignore": true,
+        "skipHiddenFiles": true,
+        "ignorePatterns": [
+            "**/node_modules/**",
+            "**/.git/**",
+            "**/dist/**",
+            "**/*.log",
+            "**/.env*"
+        ]
+    },
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/.git": true,
+        "**/coverage": true,
+        "**/*.log": true,
+        "**/.env*": true,
+        "**/tmp": true,
+        "**/temp": true
+    }
 }

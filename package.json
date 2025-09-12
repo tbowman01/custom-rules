@@ -1,6 +1,6 @@
 {
   "name": "@tbowman01/custom-rules",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A customizable CLI tool for project rules validation and enforcement",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

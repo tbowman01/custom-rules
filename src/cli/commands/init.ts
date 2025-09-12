@@ -288,6 +288,46 @@ rules:
     enabled: false
     severity: "info"
 
+# Security configuration - commands that should never be executed
+security:
+  neverExecute:
+    - "rm -rf /"
+    - "del /f /s /q C:\\\\*"
+    - "format c:"
+    - "shutdown"
+    - "reboot"
+    - "halt"
+  blockedCommands:
+    - "sudo *"
+    - "curl *://*/malware*"
+    - "powershell -enc*"
+  unsafePatterns:
+    - "\\\\\\$\\\\\\([^)]*\\\\\\)"
+    - "\\\`[^\\\`]*\\\`"
+    - ">[>&].*"
+
+# File and directory exclusions
+exclusions:
+  files:
+    - ".env"
+    - ".env.local"
+    - "*.key"
+    - "*.pem"
+    - "id_rsa"
+  directories:
+    - "node_modules"
+    - ".git"
+    - "dist"
+    - "coverage"
+  patterns:
+    - "**/node_modules/**"
+    - "**/.git/**"
+    - "**/*.log"
+  extensions:
+    - ".exe"
+    - ".bat"
+    - ".dll"
+
 # Output destinations
 destinations:
   reports: "./reports"

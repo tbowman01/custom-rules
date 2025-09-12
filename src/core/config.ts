@@ -37,6 +37,17 @@ export interface ConfigSchema {
     logs: string;
     backups?: string;
   };
+  security: {
+    neverExecute: string[];
+    blockedCommands: string[];
+    unsafePatterns: string[];
+  };
+  exclusions: {
+    files: string[];
+    directories: string[];
+    patterns: string[];
+    extensions: string[];
+  };
   integrations: {
     git: {
       enabled: boolean;
@@ -79,7 +90,7 @@ export class ConfigManager {
           }
         } catch (error) {
           if (this.verbose) {
-            console.log(chalk.yellow(`Failed to load config from ${configPath}: ${error.message}`));
+            console.log(chalk.yellow(`Failed to load config from ${configPath}: ${error instanceof Error ? error.message : 'Unknown error'}`));
           }
           continue;
         }
@@ -142,6 +153,83 @@ export class ConfigManager {
         reports: './reports',
         logs: './logs',
         backups: './backups'
+      },
+      security: {
+        neverExecute: [
+          'rm -rf /',
+          'del /f /s /q C:\\*',
+          'format c:',
+          'mkfs.*',
+          'sudo rm -rf',
+          ':(){ :|:& };:',
+          'chmod -R 777 /',
+          'dd if=/dev/zero',
+          'shutdown',
+          'reboot',
+          'halt'
+        ],
+        blockedCommands: [
+          'curl *://*/malware*',
+          'wget *://*/malware*',
+          'powershell -enc*',
+          'bash -c "$(curl*',
+          'eval*',
+          'exec*'
+        ],
+        unsafePatterns: [
+          '\\$\\([^)]*\\)',
+          '`[^`]*`',
+          '\\$\\{[^}]*\\}',
+          '>[>&].*',
+          '\\|\\s*sh',
+          '\\|\\s*bash'
+        ]
+      },
+      exclusions: {
+        files: [
+          '.env',
+          '.env.local',
+          '.env.production',
+          '*.key',
+          '*.pem',
+          '*.p12',
+          'id_rsa',
+          'id_dsa',
+          'known_hosts',
+          'authorized_keys'
+        ],
+        directories: [
+          'node_modules',
+          '.git',
+          'dist',
+          'build',
+          'coverage',
+          '.nyc_output',
+          'tmp',
+          'temp',
+          '.cache'
+        ],
+        patterns: [
+          '**/node_modules/**',
+          '**/.git/**',
+          '**/dist/**',
+          '**/build/**',
+          '**/*.log',
+          '**/*.tmp',
+          '**/coverage/**',
+          '**/.DS_Store',
+          '**/Thumbs.db'
+        ],
+        extensions: [
+          '.exe',
+          '.bat',
+          '.cmd',
+          '.com',
+          '.scr',
+          '.pif',
+          '.msi',
+          '.dll'
+        ]
       },
       integrations: {
         git: {
@@ -206,7 +294,7 @@ export class ConfigManager {
         console.log(chalk.green(`Configuration saved to: ${outputPath}`));
       }
     } catch (error) {
-      console.error(chalk.red(`Failed to save configuration: ${error.message}`));
+      console.error(chalk.red(`Failed to save configuration: ${error instanceof Error ? error.message : 'Unknown error'}`));
       throw error;
     }
   }

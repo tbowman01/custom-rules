@@ -1,14 +1,42 @@
 {
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.organizeImports": true
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
   },
   "typescript.preferences.strictMode": true,
   "javascript.preferences.strictMode": true,
   "customRules.enabled": true,
   "customRules.profile": "development",
   "customRules.autoValidate": true,
+  "customRules.security": {
+    "enforceBlacklist": true,
+    "validateCommands": true,
+    "preventDangerousOperations": true,
+    "neverExecute": [
+      "rm -rf /",
+      "del /f /s /q C:\\*",
+      "format",
+      "shutdown",
+      "reboot",
+      "halt",
+      "mkfs.*",
+      "dd if=/dev/zero"
+    ]
+  },
+  "customRules.exclusions": {
+    "respectGitignore": true,
+    "skipHiddenFiles": true,
+    "ignorePatterns": [
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/dist/**",
+      "**/*.log",
+      "**/.env*",
+      "**/coverage/**",
+      "**/.nyc_output/**"
+    ]
+  },
   "files.exclude": {
     "**/node_modules": true,
     "**/dist": true,
