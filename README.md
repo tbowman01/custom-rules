@@ -3,31 +3,30 @@
 
 ## Overview
 
-`trevors-custom-rules` is a Node.js CLI tool to quickly install and manage Trevor's curated Markdown rule files into any project. It automatically places rules in the correct IDE-specific folders, supports flexible configuration, and integrates automation through a `postinstall` script.
+`@tbowman01/custom-rules` is a TypeScript CLI tool for project rules validation and enforcement. It provides scaffolding for configuration files, IDE integrations, and a comprehensive testing framework with strict TDD requirements.
 
 ---
 
 ## Features
 
-* **Easy Install:** Run `npx trevors-custom-rules@latest init` to set up instantly.
-* **IDE Targets:** `--ide` flag to copy files into `.cursor/rules/`, `.windsurf/rules/`, `.github/rules/`, or `.claude/rules/`.
-* **Project Config:** `.trevors-rules.json` for project-specific defaults.
-* **Excludes:** Use `--exclude` to skip files.
-* **Postinstall Hook:** Automate rule installation on every `npm install`.
-* **Safe Defaults:** Won’t overwrite existing files unless `--force` is specified.
+* **TypeScript-First:** Built with strict TypeScript and comprehensive type safety
+* **TDD Enforced:** 90% overall coverage, 100% for core/utils components
+* **IDE Integration:** Support for VSCode, JetBrains, and Vim configurations
+* **Profile System:** Environment-specific configurations with inheritance
+* **Security-First:** Built-in command filtering and injection prevention
+* **Modern Tooling:** Vitest, ESLint, Husky pre-commit hooks, GitHub Actions CI
 
 ---
 
 ## Installation
-
 ```sh
-npm install trevors-custom-rules --save-dev
+npm install @tbowman01/custom-rules --save-dev
 ```
 
 Or run directly via `npx`:
 
 ```sh
-npx trevors-custom-rules@latest init --ide cursor
+npx @tbowman01/custom-rules@latest init --ide vscode
 ```
 
 ---
@@ -35,22 +34,25 @@ npx trevors-custom-rules@latest init --ide cursor
 ## Usage
 
 ```sh
-# Basic usage
-npx trevors-custom-rules@latest init --ide cursor
+# Initialize with IDE integration
+custom-rules init --ide vscode
 
-# Other IDEs
-npx trevors-custom-rules@latest init --ide windsurf
-npx trevors-custom-rules@latest init --ide github
-npx trevors-custom-rules@latest init --ide claude
+# Other IDE support
+custom-rules init --ide jetbrains
+custom-rules init --ide vim
+custom-rules init --ide all
 
 # Preview changes without writing
-npx trevors-custom-rules@latest init --dry-run --list
+custom-rules init --dry-run --verbose
 
-# Exclude specific files
-npx trevors-custom-rules@latest init --ide github --exclude "**/*.bak,**/.DS_Store"
+# Profile management
+custom-rules profile list
+custom-rules profile create production --interactive
+custom-rules profile show development
 
-# Add postinstall automation
-npx trevors-custom-rules@latest init --ide cursor --postinstall
+# Run validation (future)
+custom-rules run --report json
+custom-rules validate
 ```
 
 ---
@@ -110,10 +112,19 @@ cd custom-rules
 npm install
 ```
 
-3. Test locally:
-
+3. Build and test:
 ```sh
-node ./bin/cli.js init --ide cursor --dry-run --list
+# Build the project
+npm run build
+
+# Run tests with coverage
+npm run coverage
+
+# Test CLI locally
+node dist/cli/main.js init --ide vscode --dry-run
+
+# TDD development mode
+npm run test:watch
 ```
 
 4. Publish:
@@ -124,15 +135,29 @@ npm publish --access public
 
 ---
 
+## Architecture
+
+This project follows **Test-Driven Development (TDD)** with:
+- **90%+ overall coverage** requirement
+- **100% coverage** for `src/core/` and `src/utils/`  
+- **Vitest** for testing with V8 coverage
+- **Husky** pre-commit hooks enforcing quality gates
+- **GitHub Actions** CI with coverage enforcement
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed development guidelines.
+
+---
+
 ## Roadmap
 
-* Add `--profile` for alternative template sets.
-* Support custom destination paths via `--dest`.
-* Interactive setup wizard.
+* Implement actual rules validation engine
+* Add plugin system for custom rules
+* Enhanced interactive setup wizard
+* Template marketplace integration
+* Multi-project workspace support
 
 ---
 
 ## License
 
 MIT © Trevor Bowman
-

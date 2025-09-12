@@ -2,20 +2,20 @@
 /**
  * Tests for ConfigManager
  */
-import { jest } from '@jest/globals';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import * as fs from 'fs';
 import * as yaml from 'yaml';
-import { ConfigManager } from '../../core/config.js';
+import { ConfigManager } from '../../../src/core/config.js';
 
 // Mock dependencies
-jest.mock('fs');
-jest.mock('yaml');
+vi.mock('fs');
+vi.mock('yaml');
 
 describe('ConfigManager', () => {
-  let consoleSpy: ReturnType<typeof jest.spyOn>;
+  let consoleSpy: any;
 
   beforeEach(() => {
-    consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
     
     // Reset mocks
     jest.clearAllMocks();

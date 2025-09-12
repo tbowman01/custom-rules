@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+npm run lint || exit 1
+npm run typecheck || exit 1
+npm run coverage || exit 1
+
+# Require tests when src/ changes (TDD nudge)
+CHANGED_SRC=$(git diff --name-only --cached | grep '^src/.*\.ts$' || true)
+CHANGED_TESTS=$(git diff --name-only --cached | grep '^tests/.*\.test\.ts$' || true)
+if [ -n "$CHANGED_SRC" ] && [ -z "$CHANGED_TESTS" ]; then
+  echo "❌ TDD policy: changes in src/ must include tests."
+  exit 1
+fi

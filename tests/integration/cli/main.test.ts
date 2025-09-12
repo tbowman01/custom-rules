@@ -2,28 +2,28 @@
 /**
  * Tests for main CLI entry point
  */
-import { jest } from '@jest/globals';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { Command } from 'commander';
 
 // Mock dependencies
-jest.mock('../core/config.js');
-jest.mock('./commands/init.js');
-jest.mock('./commands/profile.js');
-jest.mock('./commands/run.js');
-jest.mock('./commands/validate.js');
+vi.mock('../../../src/core/config.js');
+vi.mock('../../../src/cli/commands/init.js');
+vi.mock('../../../src/cli/commands/profile.js');
+vi.mock('../../../src/cli/commands/run.js');
+vi.mock('../../../src/cli/commands/validate.js');
 
 describe('Main CLI', () => {
-  let mockProgram: jest.Mocked<Command>;
-  let consoleSpy: jest.SpyInstance;
+  let mockProgram: any;
+  let consoleSpy: any;
 
   beforeEach(() => {
-    consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-    mockProgram = new Command() as jest.Mocked<Command>;
+    consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    mockProgram = new Command();
   });
 
   afterEach(() => {
     consoleSpy.mockRestore();
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('Program Configuration', () => {
