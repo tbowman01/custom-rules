@@ -1,3 +1,4 @@
+
 # Trevor's Custom Rules CLI — README
 
 ## Overview
@@ -19,13 +20,13 @@
 
 ## Installation
 
-```bash
+```sh
 npm install trevors-custom-rules --save-dev
 ```
 
 Or run directly via `npx`:
 
-```bash
+```sh
 npx trevors-custom-rules@latest init --ide cursor
 ```
 
@@ -33,7 +34,7 @@ npx trevors-custom-rules@latest init --ide cursor
 
 ## Usage
 
-```bash
+```sh
 # Basic usage
 npx trevors-custom-rules@latest init --ide cursor
 
@@ -98,26 +99,26 @@ templates/
 
 1. Clone the repo:
 
-```bash
-git clone https://github.com/tbowman01/trevors-custom-rules.git
-cd trevors-custom-rules
+```sh
+git clone https://github.com/tbowman01/custom-rules.git
+cd custom-rules
 ```
 
 2. Install dependencies:
 
-```bash
+```sh
 npm install
 ```
 
 3. Test locally:
 
-```bash
+```sh
 node ./bin/cli.js init --ide cursor --dry-run --list
 ```
 
 4. Publish:
 
-```bash
+```sh
 npm publish --access public
 ```
 
@@ -134,3 +135,4 @@ npm publish --access public
 ## License
 
 MIT © Trevor Bowman
+

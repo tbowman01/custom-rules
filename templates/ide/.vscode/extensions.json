@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "tbowman01.custom-rules-vscode",
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-typescript-next",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-eslint",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}
